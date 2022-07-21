@@ -1,0 +1,82 @@
+#include<bits/stdc++.h>
+#define ll int
+#define w(t) ll t; cin>>t; while(t--)
+#define print(x) {cout<<x; return;}
+#define f(i,n) for(ll i=0;i<n;i++)
+#define rep(i,a,b) for(ll i=a;i<b;i++)
+#define Rf(i,n) for(ll i=n-1;i>=0;i--)
+#define Rep(i,a,b) for(ll i=b;i>=a;i--)
+#define all(a) (a).begin(), (a).end()
+#define pb push_back
+#define F first
+#define S second
+using namespace std;
+//using namespace boost::multiprecision;
+typedef pair<int, int> pii;
+typedef pair<ll, ll> pl;
+typedef vector<int> vi;
+typedef vector<ll> vl;
+#define nxt cout<<"\n";
+
+ll MOD =1e9 + 7;
+#define INF  -1e9
+string yes={'Y','E','S'},no={'N','O'};
+using namespace std;
+
+class Zeus 
+{
+
+    public: 
+        void subsetsum(vl a, ll i , vl sum , ll n , set<vl> &v )
+        {
+            if(i==n) 
+            {
+                sort(all(sum));
+                v.insert(sum);
+                sum.clear();
+                return;
+            }
+            subsetsum(a,i+1,sum,n,v);
+            sum.push_back(a[i]);
+            subsetsum(a,i+1,sum,n,v);
+            
+        }
+        vector<vector<int>> uniqueSubsets(int n, vector<int> &a)
+        {
+    
+            set<vl> v;
+            vl sum;
+            subsetsum(a,0,sum,n,v);
+            vector<vector<int>> ans;
+            for(auto i:v) ans.push_back(i);
+            return ans;
+        }
+
+
+};
+
+int main()
+{
+    Zeus obj;
+    ios_base::sync_with_stdio(false);cin.tie(NULL);
+    w(t)
+    {
+
+        int n; cin>>n;
+        vector<int> v(n);
+        f(i,n) cin>>v[i];
+        vector<vector<int>> ans=obj.uniqueSubsets(n,v);
+        
+        for(auto i:ans)
+        {
+            int k=i.size();
+            f(j,k) cout<<i[j]<<" ";
+            nxt;
+        }
+        
+        nxt;
+    }
+
+    return 0;
+
+}
