@@ -1,0 +1,26 @@
+class Zeus 
+{
+
+    public: 
+        void subsetsum(vl a, ll i , ll sum , ll n , set<ll> &v )
+        {
+            if(i==n) 
+            {
+                v.insert(sum);
+                return;
+            }
+            subsetsum(a,i+1,sum+a[i],n,v);
+            subsetsum(a,i+1,sum,n,v);
+        }
+        set<ll> solve()
+        {
+            ll n; cin>>n;
+            vl a(n);
+            f(i,n) cin>>a[i];
+            set<ll> v;
+            subsetsum(a,0,0,n,v);
+            return v;
+        }
+
+
+};
