@@ -1,0 +1,37 @@
+#define ll int
+#define vl vector<ll>
+class Solution {
+public:
+    void subsetsum(vl a, ll index, ll i , vl sum , ll n , vector<vl> &v, int target )
+        {
+            if(index==n)
+            {
+                if(target==0) v.push_back(sum);
+                sum.clear();
+                return;
+            }
+            
+
+           if(a[index]<=target) 
+            {
+                sum.push_back(a[index]);
+                subsetsum(a,index,i+a[index],sum,n,v,target-a[index]);
+               auto it=sum.end();
+               it--;
+               sum.erase(it);
+            }
+            
+            subsetsum(a,index+1,i,sum,n,v,target);
+
+
+            
+        }
+      
+    vector<vector<int>> combinationSum(vector<int>& a, int target) {
+        vector<vl> v;
+        int n=a.size();
+            vl sum;
+            subsetsum(a,0,0,sum,n,v,target);
+            return v;
+    }
+};
