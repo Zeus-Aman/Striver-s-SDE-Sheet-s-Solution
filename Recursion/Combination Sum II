@@ -1,0 +1,35 @@
+#define vl vector<int>
+#define ll int
+#include<bits/stdc++.h>
+ void subsetsum(vl a, ll index , vl sum , ll n , vector<vl> &v, int target )
+        {
+          if(target==0) 
+                 {   
+                    v.push_back(sum);
+                    return;
+                 }     
+          for(int i=index;i<n;i++)
+            {
+                if(i>index and a[i]==a[i-1]) continue;
+                if(a[i]>target) break;
+                sum.push_back(a[i]);
+                subsetsum(a,i+1,sum,n,v,target-a[i]);
+               auto it=sum.end();
+                it--;
+                sum.erase(it);
+            }
+          
+        }
+vector<vector<int>> combinationSum2(vector<int> &a, int n, int target)
+{
+	
+     vector<vl> v;
+            vl sum;
+            sort(a.begin(),a.end());
+            subsetsum(a,0,sum,n,v,target);
+            set<vl> ans;
+            for(auto i:v) ans.insert(i);
+            vector<vl> final;
+            for(auto i:ans) final.push_back(i);
+        return final;
+}
