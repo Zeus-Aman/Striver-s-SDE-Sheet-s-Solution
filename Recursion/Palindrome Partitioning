@@ -1,0 +1,36 @@
+bool ispal(string s)
+{
+    for(int i=0;i<s.size()/2;i++)
+    {
+        if(s[i]!=s[s.size()-i-1]) return false;
+    }
+    return true;
+}
+void palin(vector<vector<string>> &ans,int n,string s,int index,vector<string> temp)
+{
+    if(index==n)
+    {
+        ans.push_back(temp);
+        return;
+    }
+    for(int i=index;i<n;i++)
+    {
+        if(ispal(s.substr(index,i-index+1)))
+        {
+            temp.push_back(s.substr(index,i-index+1));
+            palin(ans,n,s,i+1,temp);
+            auto it=temp.end();
+            it--;
+            temp.erase(it);
+        }
+    }
+}
+
+vector<vector<string>> partition(string &s) 
+{
+    int n=s.size();
+    vector<vector<string>> ans;
+    vector<string> temp;
+    palin(ans,n,s,0,temp);
+    return ans;
+}
