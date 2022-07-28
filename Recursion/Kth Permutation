@@ -1,0 +1,49 @@
+long long fact[16];
+void permu(int n , int k, string &s,string temp,bool b[])
+{
+    if(n==0)
+    {
+        for(int i=1;i<16;i++)
+        {
+            if(b[i])
+            {
+                s.push_back(temp[i]);
+                break;
+            }
+        }
+        return;
+    }
+    int kk=(k/fact[n-1]+((k%fact[n-1]!=0)?1:0));
+    int cnt=0;
+    for(int i=1;i<16;i++)
+    {
+        if(b[i]==false) continue;
+        
+        if(b[i]==true) cnt++;
+        if(cnt==kk) {s.push_back(temp[i-1]); b[i]=false;break;}
+        
+    }
+    
+    if(k%fact[n-1]) permu(n-1,k%fact[n-1],s,temp,b);
+    else permu(n-1,fact[n-1],s,temp,b);
+}
+string kthPermutation(int n, int k) {
+   
+    fact[0]=1;
+    fact[1]=1;
+    bool b[16];
+    for(int i=0;i<=15;i++) b[i]=true;
+    for(int i=2;i<=15;i++)
+    {
+        fact[i]=fact[i-1]*i;
+    }
+    string s;
+    for(int i=1;i<=n;i++)
+    {
+        s.push_back(i+'0');
+    }
+    
+    string ans;
+    permu(n,k,ans,s,b);
+    return ans;    
+}
